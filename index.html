@@ -5,542 +5,639 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>PARTIDO FRELIMO - COMITÉ I CÍRCULO DO FOMENTO</title>
 <style>
-  /* Reset simples */
+  /* Reset básico */
   * {
-    box-sizing: border-box;
+    margin: 0; padding: 0; box-sizing: border-box;
   }
+
   body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #fff;
-    color: #222;
+    font-family: Arial, sans-serif;
+    background-color: #900;
+    color: white;
+    scroll-behavior: smooth;
   }
-  /* Layout */
-  .container {
+
+  header {
+    background: url('https://www.frelimo.org.mz/wp-content/uploads/2021/10/frelimo-banner.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 60px 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  header::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+  }
+
+  header p.slogan {
+    font-size: 1.2rem;
+    font-style: italic;
+    position: relative;
+    z-index: 2;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+  }
+
+  nav.menu {
+    background: #b22222;
     display: flex;
-    min-height: 100vh;
-    background: #fff0f0;
+    justify-content: center;
+    gap: 30px;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
-  nav.sidebar {
-    width: 260px;
-    background: #a00e0e;
-    color: #fff;
-    flex-shrink: 0;
+
+  nav.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  nav.menu a:hover,
+  nav.menu a.active {
+    background-color: #800000;
+  }
+
+  /* Dropdown para Organizações Sociais */
+  nav.menu .dropdown {
+    position: relative;
+  }
+  nav.menu .dropdown-content {
+    display: none;
+    position: absolute;
+    background: #900;
+    top: 40px;
+    left: 0;
+    min-width: 160px;
+    border-radius: 4px;
+    z-index: 100;
+    flex-direction: column;
+  }
+  nav.menu .dropdown-content a {
+    padding: 10px;
+    border-bottom: 1px solid #b22222;
+  }
+  nav.menu .dropdown-content a:last-child {
+    border-bottom: none;
+  }
+  nav.menu .dropdown:hover .dropdown-content {
+    display: flex;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #fff;
+    color: #333;
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    color: #b22222;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #b22222;
+    padding-bottom: 5px;
+  }
+
+  label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  input[type="tel"],
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+
+  button {
+    margin-top: 15px;
+    background-color: #b22222;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #800000;
+  }
+
+  /* Área de atividades para admin */
+  #atividades-admin {
+    border: 1px solid #b22222;
+    padding: 15px;
+    border-radius: 8px;
+    background: #f8f8f8;
+    color: #333;
+    margin-bottom: 30px;
+  }
+
+  /* Atividades listadas */
+  #atividades-lista {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    color: #333;
+  }
+
+  #atividades-lista h3 {
+    color: #b22222;
+    margin-top: 0;
+  }
+
+  /* Vídeos e imagens das atividades */
+  .atividade-midias img,
+  .atividade-midias video {
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 6px;
+  }
+
+  /* Mensagem login */
+  #login-section {
+    max-width: 400px;
+    margin: 20px auto;
+    background: #fff;
+    color: #333;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  #login-section label {
+    color: #333;
+  }
+
+  /* Resposta estatísticas */
+  #estatisticas-dados {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    color: #333;
+  }
+
+  /* Contato simples */
+  #contacto form {
     display: flex;
     flex-direction: column;
   }
-  nav.sidebar h1 {
-    font-size: 1.3rem;
-    padding: 1.2rem 1rem;
-    margin: 0;
-    border-bottom: 1px solid #800808;
-    line-height: 1.3;
+
+  #contacto label {
+    color: #333;
   }
-  nav.sidebar ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    flex-grow: 1;
-  }
-  nav.sidebar ul li {
-    border-bottom: 1px solid #800808;
-  }
-  nav.sidebar ul li a {
-    display: block;
-    color: #fff;
-    text-decoration: none;
-    padding: 1rem 1.2rem;
-    font-weight: 600;
-    transition: background 0.25s ease;
-  }
-  nav.sidebar ul li a:hover,
-  nav.sidebar ul li a.active {
-    background: #ff4b4b;
-  }
-  main.content {
-    flex-grow: 1;
-    padding: 1.5rem 2rem;
-    overflow-y: auto;
-  }
-  h2 {
-    color: #a00e0e;
-    margin-top: 0;
-  }
-  /* Slogan destaque */
-  .slogan {
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    color: #b62222;
-    border-left: 5px solid #a00e0e;
-    padding-left: 1rem;
-  }
-  /* Botões */
-  button.btn-submit {
-    background: #a00e0e;
-    border: none;
-    color: #fff;
-    padding: 0.7rem 1.3rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background 0.3s ease;
-    margin-top: 0.8rem;
-  }
-  button.btn-submit:hover {
-    background: #d43535;
-  }
-  /* Formulários */
-  form label {
-    display: block;
-    margin-top: 1rem;
-    font-weight: 600;
-    color: #800808;
-  }
-  form input[type=text],
-  form input[type=number],
-  form input[type=date],
-  form select,
-  form textarea {
-    width: 100%;
-    padding: 0.5rem 0.6rem;
-    margin-top: 0.3rem;
-    border: 1px solid #a00e0e;
-    border-radius: 4px;
-    font-size: 1rem;
-  }
-  form textarea {
-    resize: vertical;
-  }
-  /* Pages */
-  .page {
-    display: none;
-  }
-  .page.active {
-    display: block;
-  }
-  /* Table estatísticas */
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 1rem;
-  }
-  table th,
-  table td {
-    border: 1px solid #a00e0e;
-    padding: 0.6rem 1rem;
-    text-align: left;
-  }
-  table th {
-    background: #d43535;
-    color: #fff;
-  }
-  /* Actividades */
-  .atividades-list {
-    margin-top: 1rem;
-  }
-  .atividade-item {
-    border: 1px solid #a00e0e;
-    border-radius: 4px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background: #fff4f4;
-  }
-  .atividade-item h3 {
-    margin: 0 0 0.5rem 0;
-    color: #a00e0e;
-  }
-  .atividade-item small {
-    color: #a00e0e;
-    font-weight: 600;
-  }
-  /* Contacto */
-  #contacto form {
-    max-width: 400px;
-  }
-  /* Responsivo */
-  @media (max-width: 720px) {
-    .container {
-      flex-direction: column;
-    }
-    nav.sidebar {
-      width: 100%;
-      flex-direction: row;
-      overflow-x: auto;
-    }
-    nav.sidebar h1 {
-      flex: 1;
-      padding: 1rem;
-      font-size: 1rem;
-      border-bottom: none;
-    }
-    nav.sidebar ul {
-      display: flex;
-      flex-grow: 0;
-    }
-    nav.sidebar ul li {
-      border-bottom: none;
-      border-right: 1px solid #800808;
-    }
-    nav.sidebar ul li:last-child {
-      border-right: none;
-    }
-    nav.sidebar ul li a {
-      padding: 1rem 0.8rem;
-      font-size: 0.9rem;
-    }
+
+  #contacto input, #contacto textarea {
+    margin-bottom: 10px;
   }
 </style>
-<link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/7/7a/Frelimo_logo.svg" />
 </head>
 <body>
 
-<div class="container">
-  <nav class="sidebar">
-    <h1>PARTIDO FRELIMO<br><small>COMITÉ I CÍRCULO DO FOMENTO</small></h1>
-    <ul>
-      <li><a href="#" data-target="inicio" class="active">Início</a></li>
-      <li><a href="#" data-target="organ-social" >Organizações Sociais</a></li>
-      <li><a href="#" data-target="actividades" >Actividades</a></li>
-      <li><a href="#" data-target="sobre" >Sobre o Comité</a></li>
-      <li><a href="#" data-target="estatisticas" >Estatísticas</a></li>
-      <li><a href="#" data-target="contacto" >Contacto</a></li>
-    </ul>
-  </nav>
+<header>
+  <h1>PARTIDO FRELIMO<br />COMITÉ I CÍRCULO DO FOMENTO</h1>
+  <p class="slogan">Juventude, seiva da nação</p>
+</header>
 
-  <main class="content">
-    <section id="inicio" class="page active">
-      <h2>Bem-vindo ao Comité I Círculo do Fomento</h2>
-      <div class="slogan">Juventude, seiva da nação</div>
-      <p>Esta é a página oficial do Partido FRELIMO - Comité I Círculo do Fomento. Aqui pode encontrar informações, inscrever-se nas organizações sociais, acompanhar actividades, e muito mais.</p>
-      <p>Explore o menu para navegar pelas diferentes secções do site.</p>
-    </section>
+<nav class="menu">
+  <a href="#inicio" class="active">Início</a>
+  <div class="dropdown">
+    <a href="#organizacoes">Organizações Sociais ▾</a>
+    <div class="dropdown-content">
+      <a href="#aclln">ACLLN</a>
+      <a href="#omm">OMM</a>
+      <a href="#ojm">OJM</a>
+    </div>
+  </div>
+  <a href="#estatisticas">Estatísticas</a>
+  <a href="#sobre">Sobre a OJM</a>
+  <a href="#contacto">Contacto</a>
+</nav>
 
-    <section id="organ-social" class="page">
-      <h2>Organizações Sociais</h2>
-      <p>Escolha uma organização social para aceder ao formulário de inscrição:</p>
-      <ul>
-        <li><a href="#" data-org="aclln" class="link-org">ACLLN</a></li>
-        <li><a href="#" data-org="omm" class="link-org">OMM</a></li>
-        <li><a href="#" data-org="ojm" class="link-org">OJM</a></li>
-      </ul>
-      <div id="formulario-org-container"></div>
-    </section>
+<main>
 
-    <section id="actividades" class="page">
-      <h2>Actividades</h2>
-      <form id="form-nova-atividade">
-        <label for="atividade-titulo">Título da actividade:</label>
+<section id="inicio">
+  <h2>Bem-vindo ao Comité I Círculo do Fomento</h2>
+  <p>Este é o portal oficial do Partido FRELIMO - Comité I Círculo do Fomento. Navegue pelas seções para conhecer as nossas organizações sociais, inscrever-se, e acompanhar as atividades.</p>
+</section>
+
+<section id="organizacoes">
+  <h2>Organizações Sociais</h2>
+
+  <!-- ACLLN -->
+  <section id="aclln">
+    <h3>ACLLN</h3>
+    <p>Secretário: Albino Simango</p>
+    <form onsubmit="return validarFormulario(event, 'ACLLN')">
+      <label for="nome-aclln">Nome Completo</label>
+      <input type="text" id="nome-aclln" name="nome" required />
+
+      <label for="data-nasc-aclln">Data de Nascimento</label>
+      <input type="date" id="data-nasc-aclln" name="dataNascimento" required />
+
+      <label for="idade-aclln">Idade (até 35 anos)</label>
+      <input type="number" id="idade-aclln" name="idade" min="0" max="35" required />
+
+      <label for="cartao-membro-aclln">Tem cartão de membro?</label>
+      <select id="cartao-membro-aclln" name="temCartao" required>
+        <option value="">--Selecione--</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+      </select>
+
+      <label for="numero-cartao-aclln">Número do cartão de membro</label>
+      <input type="text" id="numero-cartao-aclln" name="numeroCartao" />
+
+      <label for="trabalha-aclln">Trabalha?</label>
+      <select id="trabalha-aclln" name="trabalha" required>
+        <option value="">--Selecione--</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+      </select>
+
+      <label for="contacto-aclln">Contacto</label>
+      <input type="tel" id="contacto-aclln" name="contacto" required />
+
+      <button type="submit">Enviar Inscrição ACLLN</button>
+    </form>
+  </section>
+
+  <!-- OMM -->
+  <section id="omm">
+    <h3>OMM</h3>
+    <p>Secretária: Margarida Zandamela</p>
+    <form onsubmit="return validarFormulario(event, 'OMM')">
+      <label for="nome-omm">Nome Completo</label>
+      <input type="text" id="nome-omm" name="nome" required />
+
+      <label for="data-nasc-omm">Data de Nascimento</label>
+      <input type="date" id="data-nasc-omm" name="dataNascimento" required />
+
+      <label for="idade-omm">Idade (até 35 anos)</label>
+      <input type="number" id="idade-omm" name="idade" min="0" max="35" required />
+
+      <label for="cartao-membro-omm">Tem cartão de membro?</label>
+      <select id="cartao-membro-omm" name="temCartao" required>
+        <option value="">--Selecione--</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+      </select>
+
+      <label for="numero-cartao-omm">Número do cartão de membro</label>
+      <input type="text" id="numero-cartao-omm" name="numeroCartao" />
+
+      <label for="trabalha-omm">Trabalha?</label>
+      <select id="trabalha-omm" name="trabalha" required>
+        <option value="">--Selecione--</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+      </select>
+
+      <label for="contacto-omm">Contacto</label>
+      <input type="tel" id="contacto-omm" name="contacto" required />
+
+      <button type="submit">Enviar Inscrição OMM</button>
+    </form>
+  </section>
+
+  <!-- OJM -->
+  <section id="ojm">
+    <h3>OJM</h3>
+    <p>Secretário: Anselmo Armindo Machavane</p>
+    <form onsubmit="return validarFormulario(event, 'OJM')">
+      <label for="nome-ojm">Nome Completo</label>
+      <input type="text" id="nome-ojm" name="nome" required />
+
+      <label for="data-nasc-ojm">Data de Nascimento</label>
+      <input type="date" id="data-nasc-ojm" name="dataNascimento" required />
+
+      <label for="idade-ojm">Idade (até 35 anos)</label>
+      <input type="number" id="idade-ojm" name="idade" min="0" max="35" required />
+
+      <label for="cartao-membro-ojm">Tem cartão de membro?</label>
+      <select id="cartao-membro-ojm" name="temCartao" required>
+        <option value="">--Selecione--</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+      </select>
+
+      <label for="numero-cartao-ojm">Número do cartão de membro</label>
+      <input type="text" id="numero-cartao-ojm" name="numeroCartao" />
+
+      <label for="trabalha-ojm">Trabalha?</label>
+      <select id="trabalha-ojm" name="trabalha" required>
+        <option value="">--Selecione--</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+      </select>
+
+      <label for="contacto-ojm">Contacto</label>
+      <input type="tel" id="contacto-ojm" name="contacto" required />
+
+      <button type="submit">Enviar Inscrição OJM</button>
+    </form>
+  </section>
+</section>
+
+<section id="estatisticas">
+  <h2>Estatísticas (Área Restrita)</h2>
+  
+  <div id="login-section">
+    <label for="password-input">Insira a senha para acessar as estatísticas:</label>
+    <input type="password" id="password-input" />
+    <button onclick="fazerLogin()">Entrar</button>
+    <p id="login-msg" style="color:red; margin-top: 8px;"></p>
+  </div>
+  
+  <div id="estatisticas-dados" style="display:none;">
+    <h3>Resumo dos Membros Inscritos</h3>
+    <p id="total-membros"></p>
+    <p id="membros-trabalham"></p>
+    <p id="membros-nao-trabalham"></p>
+    <button onclick="exportarExcel()">Exportar para Excel</button>
+
+    <h3>Adicionar Atividades</h3>
+    <div id="atividades-admin">
+      <form id="form-atividade" onsubmit="return adicionarAtividade(event)">
+        <label for="atividade-titulo">Título da Atividade</label>
         <input type="text" id="atividade-titulo" required />
 
-        <label for="atividade-data">Data da actividade:</label>
-        <input type="date" id="atividade-data" required />
+        <label for="atividade-descricao">Descrição</label>
+        <textarea id="atividade-descricao" rows="3" required></textarea>
 
-        <label for="atividade-descricao">Descrição:</label>
-        <textarea id="atividade-descricao" rows="4" required></textarea>
+        <label for="atividade-imagem">Imagem (URL)</label>
+        <input type="text" id="atividade-imagem" placeholder="URL da imagem (opcional)" />
 
-        <button class="btn-submit" type="submit">Adicionar Actividade</button>
+        <label for="atividade-video">Vídeo (URL embutido)</label>
+        <input type="text" id="atividade-video" placeholder="URL do vídeo (opcional)" />
+
+        <button type="submit">Adicionar Atividade</button>
       </form>
+    </div>
 
-      <div class="atividades-list" id="atividades-list"></div>
-    </section>
+    <h3>Atividades Publicadas</h3>
+    <div id="atividades-lista"></div>
+  </div>
+</section>
 
-    <section id="sobre" class="page">
-      <h2>Sobre o Comité</h2>
-      <p><strong>Organização e Funcionamento do Comité:</strong></p>
-      <ul>
-        <li>Primeiro Secretário: José Chavane</li>
-        <li>Secretaria para Organização, Mobilização e Organizações Sociais: Benencia Virgílio Mondlane</li>
-        <li>Secretaria para Administração e Finanças: Isabel Francisco Nhamizinga</li>
-        <li>Elo de Ligação: Carlos Ubisse</li>
-      </ul>
-      <p><strong>Secretários das Organizações Sociais:</strong></p>
-      <ul>
-        <li>ACLLN: Albino Simango</li>
-        <li>OMM: Margarida Zandamela</li>
-        <li>OJM: Anselmo Armindo Machavane</li>
-      </ul>
-      <p>A missão do Comité é promover o desenvolvimento social, cultural e político da juventude, reforçando a unidade e o progresso do nosso país.</p>
-    </section>
+<section id="sobre">
+  <h2>Sobre a OJM</h2>
+  <p>
+    A OJM, que significa Organização da Juventude Moçambicana, é uma organização juvenil em Moçambique, braço juvenil do partido FRELIMO.
+    Foi fundada a 29 de novembro de 1977 e é a maior e mais antiga organização juvenil do país, com mais de 2,8 milhões de membros.
+    A OJM desempenha um papel importante na promoção da unidade nacional, da paz, da coesão social, na defesa da soberania, da integridade territorial, da independência nacional e do desenvolvimento sustentável de Moçambique.
+  </p>
+  <p>
+    Em resumo: A OJM é a organização juvenil do partido FRELIMO, a maior e mais antiga organização juvenil de Moçambique, com o objetivo de promover a juventude como a seiva da nação.
+  </p>
+</section>
 
-    <section id="estatisticas" class="page">
-      <h2>Estatísticas das Inscrições</h2>
-      <div id="login-estatisticas">
-        <label for="senha-estatisticas">Insira a senha para aceder às estatísticas:</label>
-        <input type="password" id="senha-estatisticas" />
-        <button id="btn-login">Entrar</button>
-        <p id="msg-login" style="color:red;"></p>
-      </div>
+<section id="contacto">
+  <h2>Contacto</h2>
+  <form onsubmit="return enviarMensagem(event)">
+    <label for="nome-contato">Nome Completo</label>
+    <input type="text" id="nome-contato" required />
 
-      <div id="estatisticas-content" style="display:none;">
-        <table>
-          <thead>
-            <tr>
-              <th>Organização</th>
-              <th>Número de Inscritos</th>
-            </tr>
-          </thead>
-          <tbody id="estatisticas-tbody"></tbody>
-        </table>
-        <button id="btn-exportar">Exportar para Excel (.csv)</button>
-      </div>
-    </section>
+    <label for="email-contato">Email</label>
+    <input type="text" id="email-contato" required />
 
-    <section id="contacto" class="page">
-      <h2>Contacto</h2>
-      <form id="form-contacto">
-        <label for="nome-contacto">Nome:</label>
-        <input type="text" id="nome-contacto" required />
+    <label for="mensagem-contato">Mensagem</label>
+    <textarea id="mensagem-contato" rows="4" required></textarea>
 
-        <label for="email-contacto">Email:</label>
-        <input type="text" id="email-contacto" required />
-
-        <label for="mensagem-contacto">Mensagem:</label>
-        <textarea id="mensagem-contacto" rows="5" required></textarea>
-
-        <button class="btn-submit" type="submit">Enviar</button>
-      </form>
-    </section>
-
-  </main>
-</div>
+    <button type="submit">Enviar Mensagem</button>
+  </form>
+</section>
 
 <script>
-  // Navegação simples no menu
-  const links = document.querySelectorAll('nav.sidebar ul li a');
-  const pages = document.querySelectorAll('.page');
-  links.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const target = link.getAttribute('data-target');
-      if (!target) return;
-      pages.forEach(p => p.classList.remove('active'));
-      document.getElementById(target).classList.add('active');
-      links.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
-      // Limpar formulários e mensagens quando mudar de página
-      limparFormularioOrganizacao();
-      limparActividades();
-      limparEstatisticasLogin();
-    });
-  });
-
-  // --- Organizações sociais e seus formulários ---
-  const orgSecretarios = {
-    aclln: 'Albino Simango',
-    omm: 'Margarida Zandamela',
-    ojm: 'Anselmo Armindo Machavane'
+  // Dados armazenados localmente (simulação de DB)
+  const membros = {
+    ACLLN: [],
+    OMM: [],
+    OJM: []
   };
 
-  const orgNomes = {
-    aclln: 'ACLLN',
-    omm: 'OMM',
-    ojm: 'OJM'
-  };
+  const atividades = [];
 
-  const formContainer = document.getElementById('formulario-org-container');
-  document.querySelectorAll('.link-org').forEach(el => {
-    el.addEventListener('click', e => {
-      e.preventDefault();
-      const org = e.target.getAttribute('data-org');
-      mostrarFormularioOrganizacao(org);
-    });
-  });
-
-  function mostrarFormularioOrganizacao(org) {
-    formContainer.innerHTML = '';
-    if (!orgNomes[org]) return;
-    const form = document.createElement('form');
-    form.id = 'form-' + org;
-    form.innerHTML = `
-      <h3>Inscrição na organização ${orgNomes[org]}</h3>
-      <p><strong>Secretário(a):</strong> ${orgSecretarios[org]}</p>
-
-      <label for="nome-${org}">Nome completo:</label>
-      <input type="text" id="nome-${org}" required />
-
-      <label for="data-nasc-${org}">Data de nascimento:</label>
-      <input type="date" id="data-nasc-${org}" required />
-
-      <label for="idade-${org}">Idade (até 35 anos):</label>
-      <input type="number" id="idade-${org}" min="0" max="35" required />
-
-      <label for="nucleo-${org}">Pertence a que Núcleo da OJM:</label>
-      <input type="text" id="nucleo-${org}" required />
-
-      <label for="cartao-membro-${org}">Tem cartão de membro?</label>
-      <select id="cartao-membro-${org}" required>
-        <option value="">Selecione</option>
-        <option value="Sim">Sim</option>
-        <option value="Não">Não</option>
-      </select>
-
-      <label for="num-cartao-${org}">Número do cartão de membro:</label>
-      <input type="text" id="num-cartao-${org}" />
-
-      <label for="trabalha-${org}">Trabalha?</label>
-      <select id="trabalha-${org}" required>
-        <option value="">Selecione</option>
-        <option value="Sim">Sim</option>
-        <option value="Não">Não</option>
-      </select>
-
-      <label for="contacto-${org}">Contacto:</label>
-      <input type="text" id="contacto-${org}" required />
-
-      <button class="btn-submit" type="submit">Inscrever</button>
-      <p id="msg-form-${org}" style="color:green;"></p>
-    `;
-    formContainer.appendChild(form);
-
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      salvarInscricao(org);
-    });
-  }
-
-  function limparFormularioOrganizacao() {
-    formContainer.innerHTML = '';
-  }
-
-  function salvarInscricao(org) {
-    const nome = document.getElementById('nome-' + org).value.trim();
-    const dataNasc = document.getElementById('data-nasc-' + org).value;
-    const idade = parseInt(document.getElementById('idade-' + org).value, 10);
-    const nucleo = document.getElementById('nucleo-' + org).value.trim();
-    const cartao = document.getElementById('cartao-membro-' + org).value;
-    const numCartao = document.getElementById('num-cartao-' + org).value.trim();
-    const trabalha = document.getElementById('trabalha-' + org).value;
-    const contacto = document.getElementById('contacto-' + org).value.trim();
-
-    if (!nome || !dataNasc || isNaN(idade) || idade > 35 || idade < 0 || !nucleo || !cartao || !trabalha || !contacto) {
-      alert('Por favor preencha todos os campos corretamente. A idade deve ser até 35 anos.');
-      return;
-    }
-
-    const inscricoes = JSON.parse(localStorage.getItem('inscricoes_' + org)) || [];
-    inscricoes.push({
-      nome, dataNasc, idade, nucleo, cartao, numCartao, trabalha, contacto
-    });
-    localStorage.setItem('inscricoes_' + org, JSON.stringify(inscricoes));
-
-    document.getElementById('msg-form-' + org).textContent = 'Inscrição feita com sucesso!';
-    e.target.reset();
-  }
-
-  // --- Actividades ---
-  const formAtividade = document.getElementById('form-nova-atividade');
-  const listaAtividades = document.getElementById('atividades-list');
-
-  formAtividade.addEventListener('submit', e => {
+  // Validação e salvamento do formulário
+  function validarFormulario(e, org) {
     e.preventDefault();
-    adicionarAtividade();
-  });
 
-  function adicionarAtividade() {
-    const titulo = document.getElementById('atividade-titulo').value.trim();
-    const data = document.getElementById('atividade-data').value;
-    const descricao = document.getElementById('atividade-descricao').value.trim();
+    const form = e.target;
+    const nome = form.nome.value.trim();
+    const dataNascimento = form.dataNascimento.value;
+    const idade = Number(form.idade.value);
+    const temCartao = form.temCartao.value;
+    const numeroCartao = form.numeroCartao.value.trim();
+    const trabalha = form.trabalha.value;
+    const contacto = form.contacto.value.trim();
 
-    if (!titulo || !data || !descricao) {
-      alert('Por favor preencha todos os campos da actividade.');
-      return;
+    if (!nome || !dataNascimento || !idade || !temCartao || !trabalha || !contacto) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      return false;
     }
 
-    const atividades = JSON.parse(localStorage.getItem('atividades')) || [];
-    atividades.push({ titulo, data, descricao });
-    localStorage.setItem('atividades', JSON.stringify(atividades));
-
-    formAtividade.reset();
-    mostrarAtividades();
-  }
-
-  function mostrarAtividades() {
-    const atividades = JSON.parse(localStorage.getItem('atividades')) || [];
-    listaAtividades.innerHTML = '';
-    if (atividades.length === 0) {
-      listaAtividades.innerHTML = '<p>Sem actividades registadas.</p>';
-      return;
+    // Regras de idade máxima
+    if (idade > 35) {
+      alert('Idade máxima permitida é 35 anos.');
+      return false;
     }
-    atividades.forEach((a, i) => {
-      const div = document.createElement('div');
-      div.className = 'atividade-item';
-      div.innerHTML = `<h3>${a.titulo}</h3><small>${a.data}</small><p>${a.descricao}</p>`;
-      listaAtividades.appendChild(div);
+
+    // Salvar o membro na organização
+    membros[org].push({
+      nome, dataNascimento, idade, temCartao, numeroCartao, trabalha, contacto
     });
+
+    alert(`Inscrição na ${org} realizada com sucesso!`);
+    form.reset();
+    return false;
   }
 
-  function limparActividades() {
-    // Atualiza lista sempre que acessa a página
-    mostrarAtividades();
-  }
+  // Login simples para área restrita
+  function fazerLogin() {
+    const senha = document.getElementById('password-input').value;
+    const msg = document.getElementById('login-msg');
+    const dados = document.getElementById('estatisticas-dados');
+    const loginSection = document.getElementById('login-section');
 
-  // --- Estatísticas ---
-  const senhaCorreta = 'fomento123'; // podes mudar a senha aqui
-  const btnLogin = document.getElementById('btn-login');
-  const senhaInput = document.getElementById('senha-estatisticas');
-  const msgLogin = document.getElementById('msg-login');
-  const estatisticasDiv = document.getElementById('estatisticas-content');
-  const loginDiv = document.getElementById('login-estatisticas');
-  const tbodyEstatisticas = document.getElementById('estatisticas-tbody');
-  const btnExportar = document.getElementById('btn-exportar');
+    // Senha fixa para exemplo
+    const senhaCorreta = 'Frelimo2025!';
 
-  btnLogin.addEventListener('click', () => {
-    if (senhaInput.value === senhaCorreta) {
-      msgLogin.textContent = '';
-      loginDiv.style.display = 'none';
-      estatisticasDiv.style.display = 'block';
+    if (senha === senhaCorreta) {
+      msg.textContent = '';
+      loginSection.style.display = 'none';
+      dados.style.display = 'block';
       mostrarEstatisticas();
+      mostrarAtividades();
     } else {
-      msgLogin.textContent = 'Senha incorreta.';
-      estatisticasDiv.style.display = 'none';
+      msg.textContent = 'Senha incorreta. Tente novamente.';
     }
-  });
-
-  function mostrarEstatisticas() {
-    tbodyEstatisticas.innerHTML = '';
-    const orgs = ['aclln', 'omm', 'ojm'];
-    orgs.forEach(org => {
-      const inscricoes = JSON.parse(localStorage.getItem('inscricoes_' + org)) || [];
-      const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${orgNomes[org]}</td><td>${inscricoes.length}</td>`;
-      tbodyEstatisticas.appendChild(tr);
-    });
   }
 
-  btnExportar.addEventListener('click', () => {
-    const orgs = ['aclln', 'omm', 'ojm'];
-    let csv = 'Organização,Número de Inscritos\n';
-    orgs.forEach(org => {
-      const inscricoes = JSON.parse(localStorage.getItem('inscricoes_' + org)) || [];
-      csv += `${orgNomes[org]},${inscricoes.length}\n`;
-    });
-    const blob = new Blob([csv], {type: 'text/csv'});
+  // Mostrar estatísticas
+  function mostrarEstatisticas() {
+    const total = membros.ACLLN.length + membros.OMM.length + membros.OJM.length;
+    const trabalham = contarTrabalham();
+    const naoTrabalham = total - trabalham;
+
+    document.getElementById('total-membros').textContent = `Total de membros inscritos: ${total}`;
+    document.getElementById('membros-trabalham').textContent = `Membros que trabalham: ${trabalham}`;
+    document.getElementById('membros-nao-trabalham').textContent = `Membros que não trabalham: ${naoTrabalham}`;
+  }
+
+  function contarTrabalham() {
+    let count = 0;
+    for (const org in membros) {
+      membros[org].forEach(m => {
+        if (m.trabalha === 'Sim') count++;
+      });
+    }
+    return count;
+  }
+
+  // Exportar dados para Excel (CSV simplificado)
+  function exportarExcel() {
+    let csv = 'Organizacao,Nome,DataNascimento,Idade,TemCartao,NumeroCartao,Trabalha,Contacto\n';
+    for (const org in membros) {
+      membros[org].forEach(m => {
+        csv += `${org},"${m.nome}",${m.dataNascimento},${m.idade},${m.temCartao},${m.numeroCartao},${m.trabalha},${m.contacto}\n`;
+      });
+    }
+    const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'estatisticas_inscricoes.csv';
+    a.download = 'membros_inscritos.csv';
+    document.body.appendChild(a);
     a.click();
-    URL.revokeObjectURL(url);
-  });
-
-  function limparEstatisticasLogin() {
-    senhaInput.value = '';
-    msgLogin.textContent = '';
-    loginDiv.style.display = 'block';
-    estatisticasDiv.style.display = 'none';
+    document.body.removeChild(a);
   }
 
-  // --- Contacto ---
-  const formContacto = document.getElementById('form-contacto');
-  formContacto.addEventListener('submit', e => {
+  // Enviar mensagem no contacto (simples alerta)
+  function enviarMensagem(e) {
     e.preventDefault();
-    alert('Mensagem enviada! Obrigado pelo contacto.');
-    formContacto.reset();
+    alert('Mensagem enviada com sucesso! Entraremos em contacto.');
+    e.target.reset();
+    return false;
+  }
+
+  // Adicionar atividade (somente após login)
+  function adicionarAtividade(e) {
+    e.preventDefault();
+    const titulo = document.getElementById('atividade-titulo').value.trim();
+    const descricao = document.getElementById('atividade-descricao').value.trim();
+    const imagem = document.getElementById('atividade-imagem').value.trim();
+    const video = document.getElementById('atividade-video').value.trim();
+
+    if (!titulo || !descricao) {
+      alert('Título e descrição são obrigatórios.');
+      return false;
+    }
+
+    atividades.push({ titulo, descricao, imagem, video });
+    alert('Atividade adicionada com sucesso!');
+    e.target.reset();
+    mostrarAtividades();
+    return false;
+  }
+
+  // Mostrar atividades
+  function mostrarAtividades() {
+    const container = document.getElementById('atividades-lista');
+    container.innerHTML = '';
+
+    if (atividades.length === 0) {
+      container.textContent = 'Nenhuma atividade publicada ainda.';
+      return;
+    }
+
+    atividades.forEach((atividade, i) => {
+      const div = document.createElement('div');
+      div.style.borderBottom = '1px solid #ccc';
+      div.style.paddingBottom = '10px';
+      div.style.marginBottom = '10px';
+
+      const h3 = document.createElement('h3');
+      h3.textContent = atividade.titulo;
+
+      const p = document.createElement('p');
+      p.textContent = atividade.descricao;
+
+      div.appendChild(h3);
+      div.appendChild(p);
+
+      if (atividade.imagem) {
+        const img = document.createElement('img');
+        img.src = atividade.imagem;
+        img.alt = atividade.titulo;
+        div.appendChild(img);
+      }
+
+      if (atividade.video) {
+        const iframe = document.createElement('iframe');
+        iframe.src = atividade.video;
+        iframe.width = '100%';
+        iframe.height = '315';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        div.appendChild(iframe);
+      }
+
+      container.appendChild(div);
+    });
+  }
+
+  // Navegação ativa do menu
+  const menuLinks = document.querySelectorAll('nav.menu a');
+  window.addEventListener('scroll', () => {
+    let fromTop = window.scrollY + 80;
+    menuLinks.forEach(link => {
+      const section = document.querySelector(link.hash);
+      if (!section) return;
+      if (
+        section.offsetTop <= fromTop &&
+        section.offsetTop + section.offsetHeight > fromTop
+      ) {
+        menuLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
   });
 
-  // Inicializações
-  mostrarAtividades();
 </script>
 
 </body>
